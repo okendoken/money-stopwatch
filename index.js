@@ -14,8 +14,20 @@ var timeNow = function () {
     $moneyTotal = document.getElementById('money-total'),
     rate = 50,
     timePassedCurrent = {},
-    timePassedTotal = {};
-setInterval(function () {
+    timePassedTotal = {},
+    $buttonStart = document.getElementById('start'),
+    $buttonStop = document.getElementById('stop'),
+    interval;
+
+$buttonStart.onclick = function () {
+    interval = setInterval(timer, 100);
+};
+
+$buttonStop.onclick = function () {
+  clearInterval(interval);
+};
+
+function timer() {
     timePassedTotal.millis = timeNow() - timeStartTotal;
     timePassedTotal.deciseconds = timePassedTotal.millis / 100;
     timePassedTotal.seconds = timePassedTotal.millis / 1000;
@@ -38,4 +50,4 @@ setInterval(function () {
         + ':' + Math.floor(timePassedCurrent.seconds % 60)
         + '.' + Math.floor(timePassedCurrent.deciseconds % 10);
     $moneyCurrent.innerHTML = '$' + Math.round(timePassedCurrent.hours * rate * 100) / 100;
-}, 100);
+}
